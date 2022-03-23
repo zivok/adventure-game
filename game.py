@@ -1,23 +1,22 @@
 import time;
 
-""" description """
-print ("You find yourself standing in an open field, "
-+ "filled with grass and yellow wildflowers.")
-time.sleep(2)
+def show(message):
+    print (message)
+    time.sleep(2)
 
-print ("Rumor has it that a wicked fairie is somewhere " 
+""" description """
+show("You find yourself standing in an open field, "
++ "filled with grass and yellow wildflowers.")
+
+show("Rumor has it that a wicked fairie is somewhere " 
 + "around here, and has been terrifying the nearby village.")
-time.sleep(2)
 
 """ choice """
-print ("Enter 1 to knock on the door of the house.")
-time.sleep(2)
+show("Enter 1 to knock on the door of the house.")
 
-print ("Enter 2 to peer into the cave.")
-time.sleep(2)
+show("Enter 2 to peer into the cave.")
 
-print ("What would you like to do?")
-time.sleep(2)
+show("What would you like to do?")
 
 while True:
     choice = input("(Please enter 1 or 2).")
