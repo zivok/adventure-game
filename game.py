@@ -1,4 +1,5 @@
 import time
+import random
 
 from click import option;
 
@@ -105,7 +106,7 @@ def choice(option, actionList, args):
     actionList[option](args)
 
 
-def wellcome(items):
+def wellcome(items, enemy):
     environmentDescription = [
         "You find yourself standing in an open field, "
         "filled with grass and yellow wildflowers.",
@@ -124,6 +125,8 @@ def wellcome(items):
 
 def play():
     items = []
+    enemies = ["wicked fairie", "troll", "dragon", "gorgon", "pirate"]
+    enemy = random.choice(enemies)
     wellcome(items)
 
 
