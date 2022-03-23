@@ -5,7 +5,7 @@ from click import option;
 
 """ start actions """
 
-def house(items):
+def house(items, enemy):
     environmentDescription = [
         "You are about to knock when the door opens and out steps a troll.",
         "Eep! This is the troll's house!",
@@ -13,10 +13,10 @@ def house(items):
     ]
     showCompose(environmentDescription)
     option = read("Would you like to (1) fight or (2) run away?", [1, 2]);
-    choice(option, [fight, run], items)
+    [fight, run][option](items, enemy)
 
 
-def cave(items):
+def cave(items, enemy):
     environmentDescription = [
         "You peer cautiously into the cave.",
         "It turns out to be only a very small cave."
@@ -44,7 +44,7 @@ def cave(items):
     ]
     showCompose(optionDescription)
     option = read("(Please enter 1 or 2.) ", [1, 2])
-    choice(option, [house, cave], items)
+    [house, cave][option](items, enemy)
     
 
 def fight(items):
@@ -66,7 +66,7 @@ def fight(items):
     showCompose(environmentDescription)
 
 
-def run(items):
+def run(items, enemy):
     environmentDescription = [
         "You run back into the field. Luckily, you don't seem to have been followed."
     ]
@@ -79,7 +79,7 @@ def run(items):
     showCompose(optionDescription)
 
     option = read("(Please enter 1 or 2.) ", [1, 2])
-    choice(option, [house, cave], items)
+    [house, cave][option](items, enemy)
 
 
 """ end actions """
@@ -120,14 +120,14 @@ def wellcome(items, enemy):
         ];
     showCompose(environmentDescription + optionDescription)   
     option = read("(Please enter 1 or 2.) ", [1, 2])
-    choice(option, [house, cave], items)
+    [house, cave][option](items, enemy)
 
 
 def play():
     items = []
     enemies = ["wicked fairie", "troll", "dragon", "gorgon", "pirate"]
     enemy = random.choice(enemies)
-    wellcome(items)
+    wellcome(items, enemy)
 
 
 play()
