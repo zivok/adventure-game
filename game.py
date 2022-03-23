@@ -1,32 +1,56 @@
 import time;
 
+""" start actions """
+def house():
+    show("Enter to the house")
+
+
+def cave():
+    show("Enter to the cave")
+
+""" end actions """
+
 def show(message):
     print (message)
     time.sleep(2)
 
-""" description """
-show("You find yourself standing in an open field, "
-+ "filled with grass and yellow wildflowers.")
 
-show("Rumor has it that a wicked fairie is somewhere " 
-+ "around here, and has been terrifying the nearby village.")
+def showCompose(messageList):
+    for msg in messageList:
+        show(msg)
 
-""" choice """
-show("Enter 1 to knock on the door of the house.")
 
-show("Enter 2 to peer into the cave.")
-
-show("What would you like to do?")
-
-while True:
-    choice = input("(Please enter 1 or 2).")
-
-    if choice == "1":
-        print ("option 1")
-        break
-    elif choice == "2":
-        print ("option 2")
-        break
+def read(message, optionList):
+    option = int(input(message))
+    if option in optionList:
+        return option - 1
     else:
-        print ("invalid option")
+        return read(message, optionList)
 
+
+def choice(option, actionList):
+    actionList[option]()
+
+
+def wellcome():
+    environmentDescription = [
+        "You find yourself standing in an open field, "
+        "filled with grass and yellow wildflowers.",
+        "Rumor has it that a wicked fairie is somewhere "
+        "around here, and has been terrifying the nearby village."
+    ]
+    optionDescription = [
+        "Enter 1 to knock on the door of the house.",
+        "Enter 2 to peer into the cave.",
+        "What would you like to do?"
+        ];
+    showCompose(environmentDescription + optionDescription)   
+    option = read("(Please enter 1 or 2.) ", [1, 2])
+    choice(option, [house, cave])
+
+
+def play():
+    wellcome()
+
+
+play()
