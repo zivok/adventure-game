@@ -19,12 +19,15 @@ time.sleep(2)
 print ("What would you like to do?")
 time.sleep(2)
 
-choice = input("(Please enter 1 or 2).")
+while True:
+    choice = input("(Please enter 1 or 2).")
 
-if choice == "1":
-    print ("option 1")
-elif choice == "2":
-    print ("option 2")
-else:
-    print ("invalid option")
+    if choice == "1":
+        print ("option 1")
+        break
+    elif choice == "2":
+        print ("option 2")
+        break
+    else:
+        print ("invalid option")
 
