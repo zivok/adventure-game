@@ -7,12 +7,13 @@ from click import option;
 
 def house(items, enemy):
     environmentDescription = [
-        "You are about to knock when the door opens and out steps a troll.",
-        "Eep! This is the troll's house!",
-        "The troll attacks you!"
+        "You approach the door of the house.",
+        f"You are about to knock when the door opens and out steps a {enemy}.",
+        f"Eep! This is the {enemy}'s house!",
+        f"The {enemy} attacks you!"
     ]
     showCompose(environmentDescription)
-    option = read("Would you like to (1) fight or (2) run away?", [1, 2]);
+    option = read("Would you like to (1) fight or (2) run away? ", [1, 2]);
     [fight, run][option](items, enemy)
 
 
@@ -47,20 +48,20 @@ def cave(items, enemy):
     [house, cave][option](items, enemy)
     
 
-def fight(items):
+def fight(items, enemy):
 
     if "Sword of Ogoroth" in items:
         environmentDescription = [
-            "As the troll moves to attack, you unsheath your new sword.",
+            f"As the {enemy} moves to attack, you unsheath your new sword.",
             "The Sword of Ogoroth shines brightly in your hand as you brace yourself for the attack.",
-            "But the troll takes one look at your shiny new toy and runs away!",
-            "You have rid the town of the troll.",
+            f"But the {enemy} takes one look at your shiny new toy and runs away!",
+            f"You have rid the town of the {enemy}.",
             "You are victorious!"
         ]
     else:
         environmentDescription = [
             "You do your best...",
-            "but your dagger is no match for the troll.",
+            f"but your dagger is no match for the {enemy}.",
             "You have been defeated!"
         ]
     showCompose(environmentDescription)
