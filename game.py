@@ -5,7 +5,8 @@ from click import option;
 
 """ start actions """
 
-def house(items, enemy, lives):
+def house(settings):
+    enemy = settings["enemy"]
     environmentDescription = [
         "You approach the door of the house.",
         f"You are about to knock when the door opens and out steps a {enemy}.",
@@ -14,10 +15,11 @@ def house(items, enemy, lives):
     ]
     showCompose(environmentDescription)
     option = readInt("Would you like to (1) fight or (2) run away? ", [1, 2]);
-    [fight, run][option](items, enemy, lives)
+    [fight, run][option](settings)
 
 
-def cave(items, enemy, lives):
+def cave(settings):
+    items = settings["items"]
     environmentDescription = [
         "You peer cautiously into the cave.",
         "It turns out to be only a very small cave."
@@ -45,28 +47,30 @@ def cave(items, enemy, lives):
     ]
     showCompose(optionDescription)
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](items, enemy, lives)
+    [house, cave][option](settings)
     
 
-def fight(items, enemy, lives):
-
-    if "Sword of Ogoroth" in items:
+def fight(settings):
+    enemy = settings["enemy"]
+    if "Sword of Ogoroth" in settings["items"]:
         environmentDescription = [
             f"As the {enemy} moves to attack, you unsheath your new sword.",
             "The Sword of Ogoroth shines brightly in your hand as you brace yourself for the attack.",
             f"But the {enemy} takes one look at your shiny new toy and runs away!",
-            f"You have rid the town of the {enemy}."
+            f"You have rid the town of the {enemy}.",
+            "You are victorious!"
         ]
     else:
         environmentDescription = [
             "You do your best...",
-            f"but your dagger is no match for the {enemy}."
+            f"but your dagger is no match for the {enemy}.",
+            "You have been defeated!"
         ]
-        lives -= 1
+        settings["alive"] = False
     showCompose(environmentDescription)
 
 
-def run(items, enemy, lives):
+def run(settings):
     environmentDescription = [
         "You run back into the field. Luckily, you don't seem to have been followed."
     ]
@@ -79,14 +83,14 @@ def run(items, enemy, lives):
     showCompose(optionDescription)
 
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](items, enemy, lives)
+    [house, cave][option](settings)
 
 
 """ end actions """
 
 def show(message):
     print (message)
-    time.sleep(2)
+    time.sleep(DELAY)
 
 
 def showCompose(messageList):
@@ -102,7 +106,7 @@ def readInt(message, optionList):
         return readInt(message, optionList)
 
 
-def wellcome(items, enemy, lives):
+def wellcome(settings):
     environmentDescription = [
         "You find yourself standing in an open field, "
         "filled with grass and yellow wildflowers.",
@@ -116,14 +120,15 @@ def wellcome(items, enemy, lives):
         ];
     showCompose(environmentDescription + optionDescription)   
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](items, enemy, lives)
+    [house, cave][option](settings)
 
 
-def gameover(lives):
-    if lives == 0:
-        show("You have been defeated!")
+def gameover(settings):
+    if settings["alive"]:
+        show("You win! :)")
     else:
-        show("You are victorious!")
+        show("You lose. :(")
+    show("Game Over.")
 
 
 def read(message, optionList):
@@ -139,14 +144,16 @@ def readYesNot(message):
     option = read(message, optionList)
     return option == optionList[0]
 
-
+DELAY = 0
 def play():
-    lives = 1
-    items = []
     enemies = ["wicked fairie", "troll", "dragon", "gorgon", "pirate"]
-    enemy = random.choice(enemies)
-    wellcome(items, enemy, lives)
-    gameover(lives)
+    settings = {
+        "alive": True,
+        "items": [],
+        "enemy": random.choice(enemies)
+    }
+    wellcome(settings)
+    gameover(settings)
     if readYesNot("Would you like to play again? (y/n) "):
         play()
     else:
