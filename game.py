@@ -15,7 +15,7 @@ def house(settings):
     ]
     showCompose(environmentDescription)
     option = readInt("Would you like to (1) fight or (2) run away? ", [1, 2]);
-    [fight, run][option](settings)
+    [fight, run][option - 1](settings)
 
 
 def cave(settings):
@@ -47,7 +47,7 @@ def cave(settings):
     ]
     showCompose(optionDescription)
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](settings)
+    [house, cave][option - 1](settings)
     
 
 def fight(settings):
@@ -83,7 +83,7 @@ def run(settings):
     showCompose(optionDescription)
 
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](settings)
+    [house, cave][option - 1](settings)
 
 
 """ end actions """
@@ -101,7 +101,7 @@ def showCompose(messageList):
 def readInt(message, optionList):
     option = int(input(message))
     if option in optionList:
-        return option - 1
+        return option
     else:
         return readInt(message, optionList)
 
@@ -120,7 +120,7 @@ def wellcome(settings):
         ];
     showCompose(environmentDescription + optionDescription)   
     option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option](settings)
+    [house, cave][option - 1](settings)
 
 
 def gameover(settings):
