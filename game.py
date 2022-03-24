@@ -13,7 +13,7 @@ def house(items, enemy, lives):
         f"The {enemy} attacks you!"
     ]
     showCompose(environmentDescription)
-    option = read("Would you like to (1) fight or (2) run away? ", [1, 2]);
+    option = readInt("Would you like to (1) fight or (2) run away? ", [1, 2]);
     [fight, run][option](items, enemy, lives)
 
 
@@ -44,7 +44,7 @@ def cave(items, enemy, lives):
         "What would you like to do?"
     ]
     showCompose(optionDescription)
-    option = read("(Please enter 1 or 2.) ", [1, 2])
+    option = readInt("(Please enter 1 or 2.) ", [1, 2])
     [house, cave][option](items, enemy, lives)
     
 
@@ -78,7 +78,7 @@ def run(items, enemy, lives):
     ]
     showCompose(optionDescription)
 
-    option = read("(Please enter 1 or 2.) ", [1, 2])
+    option = readInt("(Please enter 1 or 2.) ", [1, 2])
     [house, cave][option](items, enemy, lives)
 
 
@@ -94,12 +94,12 @@ def showCompose(messageList):
         show(msg)
 
 
-def read(message, optionList):
+def readInt(message, optionList):
     option = int(input(message))
     if option in optionList:
         return option - 1
     else:
-        return read(message, optionList)
+        return readInt(message, optionList)
 
 
 def wellcome(items, enemy, lives):
@@ -115,7 +115,7 @@ def wellcome(items, enemy, lives):
         "What would you like to do?"
         ];
     showCompose(environmentDescription + optionDescription)   
-    option = read("(Please enter 1 or 2.) ", [1, 2])
+    option = readInt("(Please enter 1 or 2.) ", [1, 2])
     [house, cave][option](items, enemy, lives)
 
 
@@ -126,9 +126,18 @@ def gameover(lives):
         show("You are victorious!")
 
 
-def readYesNot():
-    input = read("Would you like to play again? (y/n) ", ["y", "n"])
-    return input == "y"
+def read(message, optionList):
+    option = input(message).lower()
+    if option in optionList:
+        return option
+    else:
+        return read(message, optionList)
+
+
+def readYesNot(message):
+    optionList = ["y", "n"]
+    option = read(message, optionList)
+    return option == optionList[0]
 
 
 def play():
@@ -138,7 +147,7 @@ def play():
     enemy = random.choice(enemies)
     wellcome(items, enemy, lives)
     gameover(lives)
-    if readYesNot():
+    if readYesNot("Would you like to play again? (y/n) "):
         play()
     else:
         show("Goodbye.")
