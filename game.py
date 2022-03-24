@@ -14,8 +14,11 @@ def house(settings):
         f"The {enemy} attacks you!"
     ]
     showCompose(environmentDescription)
-    option = readInt("Would you like to (1) fight or (2) run away? ", [1, 2]);
-    [fight, run][option - 1](settings)
+    actions = {
+        1: fight,
+        2: run
+    }
+    actionSelector("Would you like to (1) fight or (2) run away? ", actions, settings);
 
 
 def cave(settings):
@@ -46,9 +49,13 @@ def cave(settings):
         "What would you like to do?"
     ]
     showCompose(optionDescription)
-    option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option - 1](settings)
-    
+
+    actions = {
+        1: house,
+        2: cave
+    }
+    actionSelector("(Please enter 1 or 2.) ", actions, settings)
+
 
 def fight(settings):
     enemy = settings["enemy"]
@@ -82,8 +89,11 @@ def run(settings):
     ]
     showCompose(optionDescription)
 
-    option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option - 1](settings)
+    actions = {
+        1: house,
+        2: cave
+    }
+    actionSelector("(Please enter 1 or 2.) ", actions, settings)
 
 
 """ end actions """
@@ -106,6 +116,11 @@ def readInt(message, optionList):
         return readInt(message, optionList)
 
 
+def actionSelector(message, actions, settings):
+    option = readInt(message, list(actions.keys()))
+    actions[option](settings)
+    
+
 def wellcome(settings):
     environmentDescription = [
         "You find yourself standing in an open field, "
@@ -118,9 +133,12 @@ def wellcome(settings):
         "Enter 2 to peer into the cave.",
         "What would you like to do?"
         ];
-    showCompose(environmentDescription + optionDescription)   
-    option = readInt("(Please enter 1 or 2.) ", [1, 2])
-    [house, cave][option - 1](settings)
+    showCompose(environmentDescription + optionDescription)
+    actions = {
+        1: house,
+        2: cave
+    }
+    actionSelector("(Please enter 1 or 2.) ", actions, settings)
 
 
 def gameover(settings):
