@@ -126,6 +126,11 @@ def gameover(lives):
         show("You are victorious!")
 
 
+def readYesNot():
+    input = read("Would you like to play again? (y/n) ", ["y", "n"])
+    return input == "y"
+
+
 def play():
     lives = 1
     items = []
@@ -133,6 +138,10 @@ def play():
     enemy = random.choice(enemies)
     wellcome(items, enemy, lives)
     gameover(lives)
+    if readYesNot():
+        play()
+    else:
+        show("Goodbye.")
 
 
 play()
