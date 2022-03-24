@@ -5,7 +5,7 @@ from click import option;
 
 """ start actions """
 
-def house(settings):
+def goHouse(settings):
     enemy = settings["enemy"]
     environmentDescription = [
         "You approach the door of the house.",
@@ -21,7 +21,7 @@ def house(settings):
     actionSelector("Would you like to (1) fight or (2) run away? ", actions, settings);
 
 
-def cave(settings):
+def goCave(settings):
     items = settings["items"]
     environmentDescription = [
         "You peer cautiously into the cave.",
@@ -51,8 +51,8 @@ def cave(settings):
     showCompose(optionDescription)
 
     actions = {
-        1: house,
-        2: cave
+        1: goHouse,
+        2: goCave
     }
     actionSelector("(Please enter 1 or 2.) ", actions, settings)
 
@@ -90,8 +90,8 @@ def run(settings):
     showCompose(optionDescription)
 
     actions = {
-        1: house,
-        2: cave
+        1: goHouse,
+        2: goCave
     }
     actionSelector("(Please enter 1 or 2.) ", actions, settings)
 
@@ -121,7 +121,7 @@ def actionSelector(message, actions, settings):
     actions[option](settings)
     
 
-def wellcome(settings):
+def start(settings):
     environmentDescription = [
         "You find yourself standing in an open field, "
         "filled with grass and yellow wildflowers.",
@@ -135,8 +135,8 @@ def wellcome(settings):
         ];
     showCompose(environmentDescription + optionDescription)
     actions = {
-        1: house,
-        2: cave
+        1: goHouse,
+        2: goCave
     }
     actionSelector("(Please enter 1 or 2.) ", actions, settings)
 
@@ -163,19 +163,19 @@ def readYesNot(message):
     return option == optionList[0]
 
 DELAY = 0
-def play():
+def game():
     enemies = ["wicked fairie", "troll", "dragon", "gorgon", "pirate"]
     settings = {
         "alive": True,
         "items": [],
         "enemy": random.choice(enemies)
     }
-    wellcome(settings)
+    start(settings)
     gameover(settings)
     if readYesNot("Would you like to play again? (y/n) "):
-        play()
+        game()
     else:
         show("Goodbye.")
 
 
-play()
+game()
