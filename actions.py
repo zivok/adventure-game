@@ -1,5 +1,6 @@
 import console
 
+
 def actionSelector(message, actions, settings):
     option = console.readInt(message, list(actions.keys()))
     actions[option](settings)
@@ -16,7 +17,7 @@ def start(settings):
         "Enter 1 to knock on the door of the house.",
         "Enter 2 to peer into the cave.",
         "What would you like to do?"
-        ];
+    ]
     console.showCompose(environmentDescription + optionDescription)
     actions = {
         1: goHouse,
@@ -38,7 +39,9 @@ def goHouse(settings):
         1: fight,
         2: run
     }
-    actionSelector("Would you like to (1) fight or (2) run away? ", actions, settings);
+    actionSelector(
+        "Would you like to (1) fight or (2) run away? ",
+        actions, settings)
 
 
 def goCave(settings):
@@ -50,16 +53,17 @@ def goCave(settings):
 
     if "Sword of Ogoroth" in items:
         environmentDescription += [
-            "You've been here before, and gotten all the good stuff. It's just an empty cave now."
+            "You've been here before, and gotten all the good stuff. "
+            "It's just an empty cave now."
         ]
-    else: 
+    else:
         environmentDescription += [
             "Your eye catches a glint of metal behind a rock.",
             "You have found the magical Sword of Ogoroth!",
             "You discard your silly old dagger and take the sword with you."
         ]
         items.append("Sword of Ogoroth")
-    
+
     environmentDescription += ["You walk back out to the field."]
     console.showCompose(environmentDescription)
 
@@ -82,8 +86,10 @@ def fight(settings):
     if "Sword of Ogoroth" in settings["items"]:
         environmentDescription = [
             f"As the {enemy} moves to attack, you unsheath your new sword.",
-            "The Sword of Ogoroth shines brightly in your hand as you brace yourself for the attack.",
-            f"But the {enemy} takes one look at your shiny new toy and runs away!",
+            "The Sword of Ogoroth shines brightly in your hand "
+            "as you brace yourself for the attack.",
+            f"But the {enemy} takes one look at your shiny "
+            "new toy and runs away!",
             f"You have rid the town of the {enemy}.",
             "You are victorious!"
         ]
@@ -99,7 +105,8 @@ def fight(settings):
 
 def run(settings):
     environmentDescription = [
-        "You run back into the field. Luckily, you don't seem to have been followed."
+        "You run back into the field. Luckily, you don't seem "
+        "to have been followed."
     ]
     console.showCompose(environmentDescription)
     optionDescription = [

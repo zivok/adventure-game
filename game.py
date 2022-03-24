@@ -2,6 +2,7 @@ import random
 import console
 from actions import start
 
+
 def readYesNot(message):
     optionList = ["y", "n"]
     option = console.read(message, optionList)
@@ -29,5 +30,6 @@ def game():
         game()
     else:
         console.show("Goodbye.")
+
 
 game()

@@ -1,6 +1,7 @@
 import time
 from config import *
 
+
 def read(message, optionList):
     option = input(message).lower()
     if option in optionList:
@@ -18,11 +19,10 @@ def readInt(message, optionList):
 
 
 def show(message):
-    print (message)
+    print(message)
     time.sleep(DELAY)
 
 
 def showCompose(messageList):
     for msg in messageList:
         show(msg)
-
